@@ -18,7 +18,7 @@ const stars = [{
 
 //Middleware
 app.use(cors())
-
+//Test
 app.use(express.json())
 // app.use(express.urlencoded({ extended: true }))
 
