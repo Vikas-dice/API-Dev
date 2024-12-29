@@ -1,5 +1,5 @@
 import express from 'express'
-
+import cors from 'cors'
 const app = express()
 
 const stars = [{
@@ -17,10 +17,12 @@ const stars = [{
 }]
 
 //Middleware
+app.use(cors())
+
 app.use(express.json())
+// app.use(express.urlencoded({ extended: true }))
 
-
-//End Point
+//End Point 
 // app.get("/test", (req, res) => {
 //     res.status(200).json({ name: "Seenu" })
 // })
@@ -43,6 +45,7 @@ app.get("/stars/:name", (req, res) => {
 
 //Add a record
 app.post("/stars", (req, res) => {
+    console.log("==", req.body)
     const data = req.body
     stars.push(data)
     return res.status(200).json(stars)
@@ -58,10 +61,10 @@ app.delete("/stars/:sname", (req, res) => {
 //Update the record
 app.put("/stars/:name", (req, res) => {
     const name = req.params.name
-    const collectionNum = req.body.collectionNum
+    const statusVal = req.body.status
     stars.forEach(star => {
         if (star.name === name) {
-            star.collection = collectionNum
+            star.status = statusVal
         }
     })
     return res.status(200).json(stars)
